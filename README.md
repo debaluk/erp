@@ -69,6 +69,7 @@ Parameters:
 
 
 Usage command ```php spark route:update -i false -m YourModule```
+php spark module:create Proc -c FCMV
 
 ### Command module:create parameter
 
