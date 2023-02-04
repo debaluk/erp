@@ -7,7 +7,6 @@
 <div class=" wrapper">
 <div class="col-md-12">
   
-        <p class="login-box-msg">PILIH MODULE</p>
         <?php foreach (esc($aksesmodul) as $data) : ?>
             <?= esc($data->id_role) ?>
            

@@ -1,7 +1,6 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="javascript:void(0)" class="brand-link">
-        <i class="fas fa-shopping-cart fa-2x text-info"></i>
         <span class="brand-text font-weight-light">Inventori</span>
     </a>
 
@@ -9,20 +8,18 @@
     <div class="sidebar">
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-            <div class="image">
-                <img src="<?= base_url('uploads/profile/' . esc(get_user('avatar'))) ?>" class="img-circle elevation-2 avatar">
-            </div>
+            
             <div class="info">
-                <a href="javascript:void(0)" class="d-block"><?= esc(get_user('nama')); ?></a>
+                <a href="javascript:void(0)" class="d-block"></a>
             </div>
         </div>
 
         <!-- Sidebar Menu -->
-        <?php if (esc(get_user('id_role') == 1)) : ?>
+       
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column text-sm" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
-                    <a href="<?= base_url('dashboard') ?>" class="nav-link">
+                    <a href="<?= base_url('inv/dashboard') ?>" class="nav-link">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p> Dashboard </p>
                     </a>
@@ -36,7 +33,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="<?= base_url('master/satuan') ?>" class="nav-link">
+                            <a href="<?= base_url('inv/master/satuan') ?>" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Satuan</p>
                             </a>
@@ -129,5 +126,5 @@
         <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->
-    <?php endif ?>
+   
 </aside>

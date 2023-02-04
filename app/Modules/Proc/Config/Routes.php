@@ -5,7 +5,7 @@ if(!isset($routes))
     $routes = \Config\Services::routes(true);
 }
 
-$routes->group('inv', ['namespace' => 'App\Modules\Inv\Controllers'], function($subroutes){
+$routes->group('proc', ['namespace' => 'App\Modules\Proc\Controllers'], function($subroutes){
 
 	/*** Route for Dashboard ***/
 	$subroutes->add('', 'Dashboard::index');

@@ -1,6 +1,6 @@
-<?php namespace App\Modules\Inv\Controllers;
+<?php namespace App\Modules\Proc\Controllers;
 
-use App\Modules\Inv\Models\UserModel;
+use App\Modules\Proc\Models\UserModel;
 use CodeIgniter\Controller;
 
 class Dashboard extends Controller
@@ -19,7 +19,7 @@ class Dashboard extends Controller
 	{
 		$data = [
 		    'title' => 'Dashboard Page',
-            'view' => 'inv/dashboard',
+            'view' => 'proc/dashboard',
             'data' => $this->userModel->getUsers(),
         ];
 
