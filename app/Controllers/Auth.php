@@ -71,58 +71,6 @@ class Auth extends BaseController
         }
     }
 
-    public function lupaPassword()
-    {
-        // jika request methodnya get tampilkan form reset password 
-        if ($this->request->getMethod() == 'get') {
-            echo view('auth/lupa-password', ['title' => 'Lupa Password']);
-        } else {
-            $rules = $this->validate([
-                'email' => 'required|valid_email',
-            ]);
-            if (!($rules)) {
-                $respon = [
-                    'validasi' => false,
-                    'error' => $this->validator->getErrors()
-                ];
-            } else {
-                $user = $this->userModel->getUser($this->request->getPost('email', FILTER_SANITIZE_EMAIL));
-                // jika email tidak terdaftar 
-                if (empty($user)) {
-                    $respon = [
-                        'validasi' => true,
-                        'error' => ['email' => 'Email tidak terdaftar!']
-                    ];
-                } else {
-                    $token = bin2hex(random_bytes(32));
-                    $this->userModel->update($user->id, ['token' => $token]);
-                    $kirimEmail = $this->_kirimEmail($user->email, 'reset', $token); // kirik email
-                    if ($kirimEmail) {
-                        $respon = [
-                            'validasi' => true,
-                            'sukses' => true,
-                            'aksi' => 'lupa',
-                            'pesan' => 'Link ganti password berhasil dikirim ke email, silahkan cek di kotak masuk atau folder spam :)'
-                        ];
-                    } else {
-                        $respon = [
-                            'validasi' => true,
-                            'status' => false,
-                            'pesan' => 'Tidak dapat mengirim email, server sedang gangguan!'
-                        ];
-                    }
-                }
-            }
-            return $this->response->setJSON($respon);
-        }
-    }
-
-    public function reset()
-    {
-        $token = $this->request->getGet('token', FILTER_SANITIZE_STRING);
-        echo view('auth/ubah-password', ['title' => 'Ubah Password', 'token' => $token]);
-    }
-
     public function gantiPassword()
     {
         if ($this->request->getMethod() == 'post') {
