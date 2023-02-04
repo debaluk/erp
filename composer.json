@@ -1,0 +1,36 @@
+{
+	"name": "debaluk/erp",
+	"type": "project",
+	"description": "ERP",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Kedaisistem",
+			"email": "debaluk@gmail.com"
+		}
+	],
+	"require-dev": {
+		"codeigniter4/framework": "^4",
+    	"phpoffice/phpspreadsheet": "^1.15",
+    	"mailjet/mailjet-apiv3-php": "^1.5",
+		"mikey179/vfsstream": "1.6.*",
+		"phpunit/phpunit": "8.5.*",
+		"fakerphp/faker": "^1.9"
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Tests\\Support\\": "tests/_support"
+		}
+	},
+	"scripts": {
+		"test": "phpunit",
+		"post-update-cmd": [
+			"@composer dump-autoload"
+		]
+	},
+	"support": {
+		"forum": "http://forum.codeigniter.com/",
+		"source": "https://github.com/codeigniter4/CodeIgniter4",
+		"slack": "https://codeigniterchat.slack.com"
+	}
+}
