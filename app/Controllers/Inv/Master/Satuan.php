@@ -18,7 +18,7 @@ class Satuan extends BaseController {
     }
 
     public function index() {
-        echo view('Inv/master/satuan/index', ['title' => 'Satuan']);
+        echo view('inv/master/satuan/index', ['title' => 'Satuan']);
     }
 
     public function ajax() {
