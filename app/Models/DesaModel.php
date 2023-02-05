@@ -28,5 +28,11 @@ class DesaModel extends Model
         ->get()->getResult();
     }
 
-   
+    public function getDesaIdKec($idkec)
+    {
+        return $this->builder($this->table)
+        ->select('id, nama AS nama')
+        ->where('kecamatan_id', $idkec)->get()->getResult();
+       
+    }
 }

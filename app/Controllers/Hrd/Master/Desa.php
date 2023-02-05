@@ -116,4 +116,10 @@ class Desa extends BaseController {
             return $this->response->setJSON($respon);
         }
     }
+    public function getDesaCombo(){
+       
+        $id=$this->request->getPost('id');
+        $data = $this->desa->getDesaIdKec($id);
+        echo json_encode($data);
+    }
 }

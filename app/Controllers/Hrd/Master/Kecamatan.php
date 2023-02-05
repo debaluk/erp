@@ -114,4 +114,11 @@ class Kecamatan extends BaseController {
             return $this->response->setJSON($respon);
         }
     }
+
+    function getKecamatan(){
+       
+        $id=$this->request->getPost('id');
+        $data = $this->kecamatan->getKecamatanIdKab($id);
+        echo json_encode($data);
+    }
 }

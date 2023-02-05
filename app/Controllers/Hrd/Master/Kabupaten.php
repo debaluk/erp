@@ -107,4 +107,11 @@ class Kabupaten extends BaseController {
             return $this->response->setJSON($respon);
         }
     }
+
+    function getKabupaten(){
+       
+        $id=$this->request->getPost('id'); //$this->input->post('provinsi_id',TRUE);
+        $data = $this->kabupaten->getKabupatenIdProv($id);
+        echo json_encode($data);
+    }
 }

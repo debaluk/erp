@@ -36,7 +36,7 @@ class Vendor extends BaseController {
             'title' => 'Vendor',
             'kategori'=>$this->kategorivendor->getKategori(),
             'propinsi'=>$this->propinsiModel->getProvinsi(),
-            'desa'=>$this->desaModel->getDesa()
+            //'desa'=>$this->desaModel->getDesa()
         ]);
     }
 

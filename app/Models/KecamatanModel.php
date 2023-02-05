@@ -28,5 +28,13 @@ class KecamatanModel extends Model
         ->get()->getResult();
     }
 
+    public function getKecamatanIdKab($idkab)
+    {
+        return $this->builder($this->table)
+        ->select('id, nama AS nama')
+        ->where('kabupaten_id', $idkab)->get()->getResult();
+       
+    }
+
    
 }

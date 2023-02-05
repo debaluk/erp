@@ -28,5 +28,12 @@ class KabupatenModel extends Model
         ->get()->getResult();
     }
 
+    public function getKabupatenIdProv($idprov)
+    {
+        return $this->builder($this->table)
+        ->select('id, nama AS nama')
+        ->where('provinsi_id', $idprov)->get()->getResult();
+    }
+
    
 }
