@@ -1,7 +1,7 @@
 {
-  "name": "debaluk/erp_inv",
+  "name": "debaluk/erp",
   "type": "project",
-  "description": "Aplikasi Informasi Inventori",
+  "description": "ERP Codeigniter4",
   "license": "MIT",
   "authors": [
       {
