@@ -19,14 +19,17 @@ class Vendor extends BaseController {
     protected $desaModel;
     private $rules = [
         'kode' =>  ['rules' => 'required|alpha_numeric_punct|is_unique[inv_kategori_barang.kode,kode,{kode}]'],
-        'kategori_vendor_nama' =>  ['rules' => 'required|alpha_numeric_punct'],
+        'kategori_vendor_id' =>  ['rules' => 'required|alpha_numeric_punct'],
+        'vendor_nama' =>  ['rules' => 'required|alpha_numeric_punct'],
+        'vendor_alamat' =>  ['rules' => 'required|alpha_numeric_punct'],
+        'desa_id' =>  ['rules' => 'required|alpha_numeric_punct'],
     ];
 
     public function __construct() {
-        $this->vendorModel = new vendorModel();
+        $this->vendormodel = new vendorModel();
         $this->kategorivendor = new kategorivendorModel();
         $this->propinsiModel = new propinsiModel();
-        $this->desaModel = new desaModel();
+       
         helper('form');
     }
 
@@ -43,8 +46,14 @@ class Vendor extends BaseController {
     public function ajax() {
         if ($this->request->isAJAX()) {
             return DataTables::use ('pro_vendor')
-            ->select('pro_vendor.*,pro_kategori_vendor.kategori_vendor_nama as kategori')
+            ->select('pro_vendor.*,pro_kategori_vendor.kategori_vendor_nama as kategori,wilayah_kecamatan.id as kec_id,wilayah_kabupaten.id as kab_id, wilayah_provinsi.id as prov_id')
             ->join('pro_kategori_vendor', 'pro_kategori_vendor.kategori_vendor_id = pro_vendor.kategori_vendor_id')
+            ->join('wilayah_desa', 'wilayah_desa.id = pro_vendor.desa_id')
+            ->join('wilayah_kecamatan', 'wilayah_kecamatan.id = wilayah_desa.kecamatan_id')
+            ->join('wilayah_kabupaten', 'wilayah_kabupaten.id = wilayah_kecamatan.kabupaten_id')
+            ->join('wilayah_provinsi', 'wilayah_provinsi.id = wilayah_kabupaten.provinsi_id')
+
+
                 ->make();
         }
     }
@@ -58,11 +67,20 @@ class Vendor extends BaseController {
                 ];
             } else {
                 $data = [
+                    
+                    'kategori_vendor_id' => ucwords($this->request->getPost('kategori_vendor_id', FILTER_SANITIZE_NUMBER_INT)),
                     'kode' => ucwords($this->request->getPost('kode', FILTER_UNSAFE_RAW)),
-                    'kategori_vendor_nama' => ucwords($this->request->getPost('kategori_vendor_nama', FILTER_UNSAFE_RAW)),
-                    'keterangan' => ucwords($this->request->getPost('keterangan', FILTER_UNSAFE_RAW)),
+                    'vendor_nama' => ucwords($this->request->getPost('vendor_nama', FILTER_UNSAFE_RAW)),
+                    'vendor_alamat' => ucwords($this->request->getPost('vendor_alamat', FILTER_UNSAFE_RAW)),
+                    'desa_id' => ucwords($this->request->getPost('desa_id', FILTER_SANITIZE_NUMBER_INT)),
+                    'cp' => ucwords($this->request->getPost('cp', FILTER_UNSAFE_RAW)),
+                    'wa' => ucwords($this->request->getPost('wa', FILTER_UNSAFE_RAW)),
+                    'telp' => ucwords($this->request->getPost('telp', FILTER_UNSAFE_RAW)),
+                    'email' => ucwords($this->request->getPost('email', FILTER_UNSAFE_RAW)),
+                    'hp' => ucwords($this->request->getPost('hp', FILTER_UNSAFE_RAW)),
+                    
                 ];
-                $this->kategorivendorModel->save($data);  
+                $this->vendormodel->save($data);  
                 $respon = [
                     'validasi' => true,
                     'sukses'   => true,
@@ -82,12 +100,19 @@ class Vendor extends BaseController {
                 ];
             } else {
                 $data = [
+                    'kategori_vendor_id' => ucwords($this->request->getPost('kategori_vendor_id', FILTER_SANITIZE_NUMBER_INT)),
                     'kode' => ucwords($this->request->getPost('kode', FILTER_UNSAFE_RAW)),
-                    'kategori_vendor_nama' => ucwords($this->request->getPost('kategori_vendor_nama', FILTER_UNSAFE_RAW)),
-                    'keterangan' => ucwords($this->request->getPost('keterangan', FILTER_UNSAFE_RAW)),
-                    'kategori_vendor_id' => $this->request->getPost('kategori_vendor_id', FILTER_SANITIZE_NUMBER_INT),
+                    'vendor_nama' => ucwords($this->request->getPost('vendor_nama', FILTER_UNSAFE_RAW)),
+                    'vendor_alamat' => ucwords($this->request->getPost('vendor_alamat', FILTER_UNSAFE_RAW)),
+                    'desa_id' => ucwords($this->request->getPost('desa_id', FILTER_SANITIZE_NUMBER_INT)),
+                    'cp' => ucwords($this->request->getPost('cp', FILTER_UNSAFE_RAW)),
+                    'wa' => ucwords($this->request->getPost('wa', FILTER_UNSAFE_RAW)),
+                    'telp' => ucwords($this->request->getPost('telp', FILTER_UNSAFE_RAW)),
+                    'email' => ucwords($this->request->getPost('email', FILTER_UNSAFE_RAW)),
+                    'hp' => ucwords($this->request->getPost('hp', FILTER_UNSAFE_RAW)),
+                    'vendor_id' => $this->request->getPost('vendor_id', FILTER_SANITIZE_NUMBER_INT),
                 ];
-                $this->kategorivendorModel->save($data);  
+                $this->vendormodel->save($data);  
                 $respon = [
                     'validasi' => true,
                     'sukses'   => true,
@@ -102,8 +127,8 @@ class Vendor extends BaseController {
     public function hapus() {
         if ($this->request->isAJAX()) {           
             $id = $this->request->getGet('id', FILTER_SANITIZE_NUMBER_INT);
-            if ($this->kategorivendorModel->find($id)) {
-                $this->kategorivendorModel->delete($id, true); // hapus data
+            if ($this->vendormodel->find($id)) {
+                $this->vendormodel->delete($id, true); // hapus data
                 $respon = [
                     'status' => true,
                     'pesan'  => 'Data berhasil dihapus',
