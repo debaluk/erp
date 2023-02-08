@@ -14,9 +14,7 @@ class Vendor extends BaseController {
     protected $vendorModel;
     protected $kategorivendorModel;
     protected $ropinsiModel;
-    protected $kabupatenModel;
-    protected $kecamatanModel;
-    protected $desaModel;
+    
     private $rules = [
         'kode' =>  ['rules' => 'required|alpha_numeric_punct|is_unique[inv_kategori_barang.kode,kode,{kode}]'],
         'kategori_vendor_id' =>  ['rules' => 'required|alpha_numeric_punct'],
