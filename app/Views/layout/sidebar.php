@@ -19,6 +19,10 @@
         {
             $namamodul='PROCERUMENT';
         }
+        if ($uri->getSegment(1)=='pro')
+        {
+            $namamodul='PRODUKSI';
+        }
         echo $namamodul;
         ?>
         </div>
@@ -307,5 +311,100 @@
             </ul>
         </nav>
     <?php } ?>
-    
+    <?php if ($uri->getSegment(1)=='pro') { ?>
+    <div class="sidebar">
+       
+        <!-- Sidebar Menu -->
+       
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column text-sm" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-item">
+                    <a href="<?= base_url('dashboard') ?>" class="nav-link">
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <p> Dashboard </p>
+                    </a>
+                </li>
+
+               
+                <li class="nav-item active">
+                    <a href="javascript:void(0)" class="nav-link">
+                        <i class="nav-icon fas fa-table"></i>
+                        <p> Master <i class="right fas fa-angle-left"></i></p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?= base_url('pro/master/bentuk') ?>" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Bentuk</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('pro/master/bahan') ?>" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Bahan</p>
+                            </a>
+                        </li>
+                       
+                        <li class="nav-item">
+                            <a href="<?= base_url('pro/master/diamond') ?>" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Diamond</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('pro/master/permata') ?>" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Permata</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('pro/master/barang') ?>" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Barang Jadi</p>
+                            </a>
+                        </li>
+                       
+                    </ul>
+                </li>
+                <li class="nav-item active">
+                    <a href="javascript:void(0)" class="nav-link">
+                        <i class="nav-icon fas fa-cart-plus"></i>
+                        <p> Transaksi <i class="right fas fa-angle-left"></i></p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?= base_url('pro/transaksi/penerimaanbarang') ?>" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Penerimaan Barang</p>
+                            </a>
+                        </li>
+                       
+                    </ul>
+                </li>
+                <li class="nav-item active">
+                    <a href="javascript:void(0)" class="nav-link">
+                        <i class="nav-icon fas fa-copy"></i>
+                        <p> Report <i class="right fas fa-angle-left"></i></p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?= base_url('pro/report/stokupdate') ?>" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Stock Update</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="javascript:void(0)" data-toggle="modal" data-target="#modal-logout" class="nav-link">
+                        <i class="nav-icon fas fa-sign-out-alt"></i>
+                        <p>Logout</p>
+                    </a>
+                </li>
+               
+            </ul>
+        </nav>
+        <!-- /.sidebar-menu -->
+    </div>
+    <?php } ?>
 </aside>
