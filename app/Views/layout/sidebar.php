@@ -245,31 +245,48 @@
                         <p> Master <i class="right fas fa-angle-left"></i></p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="<?= base_url('hrd/master/propinsi') ?>" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Propinsi</p>
+
+                        <li class="nav-item menu-is-opening menu-open">
+                            <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-circle"></i>
+                            <p>Wilayah
+                            <i class="right fas fa-angle-left"></i>
+                            </p>
                             </a>
+                            <ul class="nav nav-treeview" style="display: block;">
+                           
+                                <li class="nav-item">
+                                <a href="<?= base_url('hrd/master/propinsi') ?>" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Propinsi</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="<?= base_url('hrd/master/kabupaten') ?>" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Kabupaten</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="<?= base_url('hrd/master/kecamatan') ?>" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Kecamatan</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="<?= base_url('hrd/master/desa') ?>" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Desa</p>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
                         <li class="nav-item">
-                            <a href="<?= base_url('hrd/master/kabupaten') ?>" class="nav-link">
+                            <a href="<?= base_url('hrd/master/karyawan') ?>" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Kabupaten</p>
+                                <p>Karyawan</p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="<?= base_url('hrd/master/kecamatan') ?>" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Kecamatan</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="<?= base_url('hrd/master/desa') ?>" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Desa</p>
-                            </a>
-                        </li>
-                       
                     </ul>
                 </li>
                 <li class="nav-item active">
@@ -278,12 +295,7 @@
                         <p> Transaksi <i class="right fas fa-angle-left"></i></p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="<?= base_url('hrd/master/karyawan') ?>" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Karyawan</p>
-                            </a>
-                        </li>
+                       
                        
                         <li class="nav-item">
                             <a href="<?= base_url('hrd/user') ?>" class="nav-link">
