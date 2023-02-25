@@ -2,70 +2,49 @@
 
 namespace App\Controllers\Pro\Master;
 
-use App\Models\BarangjadiModel;
-use App\Models\BentukModel;
-use App\Models\BahanModel;
-use App\Models\DiamondModel;
-use App\Models\PermataModel;
+use App\Models\KategorijasaModel;
 use App\Models\SatuanModel;
+use App\Models\JasaModel;
 use Irsyadulibad\DataTables\DataTables;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
-class Barang extends BaseController {
-    protected $barangjadiModel;
-    protected $bentukModel;
-    protected $bahanModel;
-    protected $diamondModel;
-    protected $permataModel;
+class Jasa extends BaseController {
+    protected $kategorijasaModel;
     protected $satuanModel;
-
+    protected $jasaModel;
     private $rules = [
-        'kode' =>  ['rules' => 'required|alpha_numeric_punct|is_unique[pro_barang_jadi.kode,kode,{kode}]'],
-        'id_bentuk' =>  ['rules' => 'required|integer'],
-        'id_bahan' =>  ['rules' => 'required|integer'],
-        'id_diamond' =>  ['rules' => 'required|integer'],
-        'id_permata' =>  ['rules' => 'required|integer'],
-        'barang_nama' =>  ['rules' => 'required|string'],
+        'kode' =>  ['rules' => 'required|alpha_numeric_punct|is_unique[pro_jasa.kode,kode,{kode}]'],
+        'nama_jasa' =>  ['rules' => 'required|string'],
         'satuan_id' =>  ['rules' => 'required|integer'],
-        'id_gender' =>  ['rules' => 'required|string'],
+        'kategori_jasa_id' =>  ['rules' => 'required|integer'],
         'gambar'   => ['rules' => 'max_size[gambar,2048]|mime_in[gambar,image/png,image/jpg,image/jpeg]|ext_in[gambar,png,jpg,jpeg]|is_image[gambar]'],
 
     ];
 
     public function __construct() {
-        $this->barangjadi = new barangjadiModel();
-        $this->bentuk = new bentukModel();
-        $this->bahan = new bahanModel();
-        $this->diamond = new diamondModel();
-        $this->permata = new permataModel();
+        $this->kategori = new kategorijasaModel();
         $this->satuan = new satuanModel();
+        $this->jasa = new jasaModel();
         helper('form');
     }
 
     public function index() {
         $data = [
-            'title'    => 'Barang Jadi',
-            'bentuk' => $this->bentuk->getBentuk(),  
-            'bahan' => $this->bahan->getBahan(),  
-            'diamond' => $this->diamond->getDiamond(),  
-            'permata' => $this->permata->getPermata(),  
+            'title'    => 'Jasa',
             'satuan' => $this->satuan->getSatuan(),  
-            'barang' => $this->barangjadi->detailItem(),  
+            'kategori' => $this->kategori->getKategoriJasa(),  
         ];
-        echo view('pro/master/barang/index', $data);
+        echo view('pro/master/jasa/index', $data);
         
     }
 
     public function ajax() {
         if ($this->request->isAJAX()) {
-            return DataTables::use ('pro_barang_jadi')
-            ->select('pro_barang_jadi.*,inv_satuan.satuan as satuan')
-            ->join('pro_bentuk', 'pro_bentuk.id_bentuk = pro_barang_jadi.id_bentuk')
-            ->join('pro_bahan', 'pro_bahan.id_bahan = pro_barang_jadi.id_bahan')
-            ->join('pro_diamond', 'pro_diamond.id_diamond = pro_barang_jadi.id_diamond')
-            ->join('pro_permata', 'pro_permata.id_permata= pro_barang_jadi.id_permata')
-            ->join('inv_satuan', 'inv_satuan.satuan_id = pro_barang_jadi.satuan_id')
+            return DataTables::use ('pro_jasa')
+            ->select('pro_jasa.*,inv_satuan.satuan as satuan,pro_kategori_jasa.nama_kategori_jasa as kategori')
+            ->join('pro_kategori_jasa', 'pro_kategori_jasa.kategori_jasa_id= pro_jasa.kategori_jasa_id')
+            ->join('inv_satuan', 'inv_satuan.satuan_id = pro_jasa.satuan_id')
             ->make();
         }
     }
@@ -80,21 +59,17 @@ class Barang extends BaseController {
             } else {
                 $data = [
                     'kode' => strtoupper($this->request->getPost('kode', FILTER_SANITIZE_SPECIAL_CHARS)),
-                    'id_bentuk' => $this->request->getPost('id_bentuk', FILTER_SANITIZE_NUMBER_INT),
-                    'id_bahan' => $this->request->getPost('id_bahan', FILTER_SANITIZE_NUMBER_INT),
-                    'id_diamond' => $this->request->getPost('id_diamond', FILTER_SANITIZE_NUMBER_INT),
-                    'id_permata' => $this->request->getPost('id_permata', FILTER_SANITIZE_NUMBER_INT),
-                    'barang_nama' => ucwords($this->request->getPost('barang_nama', FILTER_UNSAFE_RAW)),
+                    'kategori_jasa_id' => $this->request->getPost('kategori_jasa_id', FILTER_SANITIZE_NUMBER_INT),
                     'satuan_id' => $this->request->getPost('satuan_id', FILTER_SANITIZE_NUMBER_INT),
-                    'diskripsi' => $this->request->getPost('diskripsi'),
-                    'id_gender' => $this->request->getPost('id_gender'),
+                    'nama_jasa' => ucwords($this->request->getPost('nama_jasa', FILTER_UNSAFE_RAW)),
+                    'keterangan' => $this->request->getPost('keterangan'),
                 ];
                 // jika gambar produk ditambahkan
                 $upload = $this->_unggahGambarProduk();
                 if (!empty($upload)) {
                     $data['gambar'] = $upload['gambar'];
                 }
-                $this->barangjadi->save($data);  
+                $this->jasa->save($data);  
                 $respon = [
                     'validasi' => true,
                     'sukses'   => true,
@@ -115,15 +90,12 @@ class Barang extends BaseController {
             } else {
                 $data = [
                     'kode' => strtoupper($this->request->getPost('kode', FILTER_SANITIZE_SPECIAL_CHARS)),
-                    'id_bentuk' => $this->request->getPost('id_bentuk', FILTER_SANITIZE_NUMBER_INT),
-                    'id_bahan' => $this->request->getPost('id_bahan', FILTER_SANITIZE_NUMBER_INT),
-                    'id_diamond' => $this->request->getPost('id_diamond', FILTER_SANITIZE_NUMBER_INT),
-                    'id_permata' => $this->request->getPost('id_permata', FILTER_SANITIZE_NUMBER_INT),
-                    'barang_nama' => ucwords($this->request->getPost('barang_nama', FILTER_UNSAFE_RAW)),
+                    'kategori_jasa_id' => $this->request->getPost('kategori_jasa_id', FILTER_SANITIZE_NUMBER_INT),
                     'satuan_id' => $this->request->getPost('satuan_id', FILTER_SANITIZE_NUMBER_INT),
-                    'diskripsi' => $this->request->getPost('diskripsi'),
-                    'barang_id' => $this->request->getPost('barang_id', FILTER_SANITIZE_NUMBER_INT),
-                    'id_gender' => $this->request->getPost('id_gender'),
+                    'nama_jasa' => ucwords($this->request->getPost('nama_jasa', FILTER_UNSAFE_RAW)),
+                    'keterangan' => $this->request->getPost('keterangan'),
+                    'jasa_id' => $this->request->getPost('jasa_id', FILTER_SANITIZE_NUMBER_INT),
+                   
                 ];
                  // jika gambar produk diubah
                  $gambarLama = $this->request->getPost('gambarLama', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -131,7 +103,7 @@ class Barang extends BaseController {
                  if (!empty($upload)) {
                      $data['gambar'] = $upload['gambar'];
                  }
-                $this->barangjadi->save($data); // simpan data
+                $this->jasa->save($data); // simpan data
                 $respon = [
                     'validasi' => true,
                     'sukses'   => true,
@@ -146,8 +118,8 @@ class Barang extends BaseController {
     public function hapus() {
         if ($this->request->isAJAX()) {           
             $id = $this->request->getGet('id', FILTER_SANITIZE_NUMBER_INT);
-            if ($this->barangjadi->find($id)) {
-                $this->barangjadi->delete($id, true); // hapus data
+            if ($this->jasa->find($id)) {
+                $this->jasa->delete($id, true); // hapus data
                 $respon = [
                     'status' => true,
                     'pesan'  => 'Data berhasil dihapus',
@@ -167,12 +139,12 @@ class Barang extends BaseController {
         $file       = $this->request->getFile('gambar'); // ambil data file
         $namaRandom = $file->getRandomName();
         if ($file->isValid() && !$file->hasMoved()) {
-            if (!empty($gambarLama) && $gambarLama != 'gambar.jpg' && file_exists(FCPATH . 'uploads/produk_jadi/' . $gambarLama)) {
+            if (!empty($gambarLama) && $gambarLama != 'gambar.jpg' && file_exists(FCPATH . 'uploads/jasa/' . $gambarLama)) {
                 // hapus gambar lama
-                unlink(FCPATH . 'uploads/produk_jadi/' . $gambarLama);
+                unlink(FCPATH . 'uploads/jasa/' . $gambarLama);
             }
             // pindahkan photo baru ke folder uploads/produk
-            $file->move(FCPATH . 'uploads/produk_jadi', $namaRandom, true);
+            $file->move(FCPATH . 'uploads/jasa', $namaRandom, true);
 
             return ['gambar' => $namaRandom]; // ambil nama photo untuk disimpan di
         }

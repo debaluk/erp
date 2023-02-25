@@ -2,7 +2,7 @@
 <?php $this->section('content'); ?>
 
 <div class="container-fluid">
-    <button class="btn btn-primary mb-1 tambah"><i class="fas fa-plus"></i> Tambah Barang</button>
+    <button class="btn btn-primary mb-1 tambah"><i class="fas fa-plus"></i> Tambah</button>
     <div class="card shadow mb-4">
         <div class="card-body">
             <div class="table-responsive">
@@ -11,8 +11,8 @@
                         <tr>
                             <th>#</th>
                             <th>Kode</th>
-                            <th>Nama Barang Jadi</th>
-                            <th>Satuan</th>
+                            <th>NAMA OVERHEAD</th>
+                            <th>SATUAN</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -24,7 +24,7 @@
 <!-- Modal -->
 <div class="modal fade" id="formModal" tabindex="-1" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog" role="document">
-    <?= form_open_multipart('', ['csrf_id' => 'token']); ?>
+        <?= form_open_multipart('', ['csrf_id' => 'token']); ?>
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title"></h5>
@@ -33,69 +33,8 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="form-group row">
-                    <label for="kategori" class="col-sm-4 col-form-label">Bentuk</label>
-                    <div class="col-sm-8">
-                        <select name="id_bentuk" id="id_bentuk" class="form-control">
-                            <option value="">Pilih Bentuk</option>
-                            <?php foreach (esc($bentuk) as $data) : ?>
-                                <option value="<?= esc($data->id_bentuk) ?>"><?= esc($data->kode)  ?>|<?= esc($data->nama_bentuk)  ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                        <small class="invalid-feedback"></small>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="kategori" class="col-sm-4 col-form-label">Bahan</label>
-                    <div class="col-sm-8">
-                        <select name="id_bahan" id="id_bahan" class="form-control">
-                            <option value="">Pilih Bahan</option>
-                            <?php foreach (esc($bahan) as $data) : ?>
-                                <option value="<?= esc($data->id_bahan) ?>"><?= esc($data->kode)  ?>|<?= esc($data->nama_bahan)  ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                        <small class="invalid-feedback"></small>
-                    </div>
-                </div>
-               
-                <div class="form-group row">
-                    <label for="kategori" class="col-sm-4 col-form-label">Diamond</label>
-                    <div class="col-sm-8">
-                        <select name="id_diamond" id="id_diamond" class="form-control">
-                            <option value="">Pilih Diamond</option>
-                            <?php foreach (esc($diamond) as $data) : ?>
-                                <option value="<?= esc($data->id_diamond) ?>"><?= esc($data->kode)  ?>|<?= esc($data->nama_diamond)  ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                        <small class="invalid-feedback"></small>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="kategori" class="col-sm-4 col-form-label">Permata</label>
-                    <div class="col-sm-8">
-                        <select name="id_permata" id="id_permata" class="form-control">
-                            <option value="">Pilih Permatan</option>
-                            <?php foreach (esc($permata) as $data) : ?>
-                                <option value="<?= esc($data->id_permata) ?>"><?= esc($data->kode)  ?>|<?= esc($data->nama_permata)  ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                        <small class="invalid-feedback"></small>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="kategori" class="col-sm-4 col-form-label">Gender</label>
-                    <div class="col-sm-8">
-                        <select name="id_gender" id="id_gender" class="form-control">
-                            <option value="">Pilih </option>
-                            
-                                <option value="Pria">Pria</option>
-                                <option value="Wanita">Wanita</option>
-                                <option value="All">All</option>
-                            
-                        </select>
-                        <small class="invalid-feedback"></small>
-                    </div>
-                </div>
+           
+                
                 <div class="form-group row">
                     <label for="kategori" class="col-sm-4 col-form-label">Kode</label>
                     <div class="col-sm-8">
@@ -105,9 +44,9 @@
                 </div>
                 
                 <div class="form-group row">
-                    <label for="kategori" class="col-sm-4 col-form-label">Nama Barang</label>
+                    <label for="kategori" class="col-sm-4 col-form-label">Nama Overhead</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" name="barang_nama" id="barang_nama">
+                        <input type="text" class="form-control" name="overhead_nama" id="overhead_nama">
                         <small class="invalid-feedback"></small>
                     </div>
                 </div>
@@ -124,28 +63,15 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="kategori" class="col-sm-4 col-form-label">Deskripsi</label>
+                    <label for="kategori" class="col-sm-4 col-form-label">Keterangan</label>
                     <div class="col-sm-8">
-                        <textarea  class="form-control" name="diskripsi" id="diskripsi"></textarea>
-                       
+                        <input type="text" class="form-control" name="keterangan" id="keterangan">
                         <small class="invalid-feedback"></small>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label for="gambar">Gambar</label>
-                    <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="gambar" name="gambar">
-                        <label class="custom-file-label" for="gambar">Upload gambar</label>
-                        <small class="invalid-feedback"></small>
-                    </div>
-                </div>
-                <div class="form-group d-none">
-                        <img class="img-thumbnail" id="img-preview">
                 </div>
             </div>
 
             <div class="modal-footer">
-                <input type="hidden" name="gambarLama" id="gambarLama">
                 <button type="submit" class="btn btn-primary">Simpan</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Keluar</button>               
             </div>
@@ -163,7 +89,7 @@
             serverSide: true,
             order: [],
             ajax: {
-                url: `${BASE_URL}/pro/master/barang/ajax`
+                url: `${BASE_URL}/proc/master/overhead/ajax`
             },
             //optional
             lengthMenu: [
@@ -195,21 +121,19 @@
                     data: 'kode',
                     name: 'kode'
                 },
-                
                 {
-                    data: 'barang_nama',
-                    name: 'barang_nama'
+                    data: 'overhead_nama',
+                    name: 'overhead_nama'
                 },
                 {
                     data: 'satuan',
                     name: 'satuan'
                 },
-
                 {
                     data: function(row) {
                            
-                        let html = '<button class="btn btn-success btn-sm mr-1 ubah" data-id="' + row.barang_id + '" data-id_bentuk="' + row.id_bentuk + '" data-id_bahan="' + row.id_bahan + '"data-id_diamond="' + row.id_diamond + '" data-id_permata="' + row.id_permata + '"data-kode="' + row.kode + '"data-barang_nama="' + row.barang_nama + '"data-satuan_id="' + row.satuan_id + '"data-diskripsi="' + row.diskripsi + '"data-gambar="' + row.gambar + '"data-id_gender="' + row.id_gender + '"><i class="fas fa-edit"></i></button>'
-                        html += '<button class="btn btn-danger btn-sm hapus" data-id="' + row.barang_id + '"><i class="fa fa-trash"></i></button>'
+                        let html = '<button class="btn btn-success btn-sm mr-1 ubah" data-id="' + row.overhead_id + '" data-kode="' + row.kode + '"data-nama="' + row.overhead_nama + '"data-satuan="' + row.satuan_id + '"data-keterangan="' + row.keterangan + '"><i class="fas fa-edit"></i></button>'
+                        html += '<button class="btn btn-danger btn-sm hapus" data-id="' + row.overhead_id + '"><i class="fa fa-trash"></i></button>'
                         return html;
                     }
                 }
@@ -217,11 +141,13 @@
             columnDefs: [{
                 targets: 0,
                 width: "5%",
+                targets: 3,
+                width: "15%",
                 targets: 4,
                 width: "10%",
             },
             { //no order
-	            targets: [ 0,1,2,-1 ],
+	            targets: [ 0,1,2,3,-1 ],
 	            orderable: false, 
 	        }]
             
@@ -232,23 +158,19 @@
             $(".modal-title").text("Tambah Data");
             $("button[type=submit]").attr("id", "tambah");
         })
-        $("#gambar").on("change", function() {
-            let src = URL.createObjectURL(event.target.files[0]);
-            $("#img-preview").prop("src", src).parent().removeClass("d-none")
-        })
         $(".content").on("click", "#tambah", function(e) {
             e.preventDefault();
             let formData = new FormData($("form")[0]);
             $.ajax({
                 type: "post",
-                url: `${BASE_URL}/pro/master/barang/tambah`,
+                url: `${BASE_URL}/proc/master/overhead/tambah`,
                 dataType: "json",
                 contentType: false,
                 processData: false,
                 cache: false,
                 data: formData,
                 success: function(response) {
-                    responValidasi(['tambah'], ['id_gender','id_bentuk', 'id_bahan','id_diamond','id_permata','kode','nama_barang','satuan_id'], response);
+                    responValidasi(['tambah'], ['kode','overhead_nama','satuan_id','keterangan'], response);
                     if (response.sukses) {
                         $("#formModal").modal("hide");
                         table.ajax.reload();
@@ -261,18 +183,11 @@
             $(".modal-title").text("Edit Data");
             $("button[type=submit]").attr("id", "ubah");
             // isi tiap kolom
-            $("#id_bentuk").val($(this).data("id_bentuk"));
-            $("#id_bahan").val($(this).data("id_bahan"));
-            $("#id_diamond").val($(this).data("id_diamond"));
-            $("#id_permata").val($(this).data("id_permata"));
             $("#kode").val($(this).data("kode"));
-            $("#barang_nama").val($(this).data("barang_nama"));
-            $("#satuan_id").val($(this).data("satuan_id"));
-            $("#id_gender").val($(this).data("id_gender"));
-                       
-            $("#img-preview").prop("src", `${BASE_URL}/uploads/produk_jadi/` + $(this).data('gambar')).parent().removeClass("d-none");
-            $("#gambarLama").val($(this).data('gambar'));
-            $(".modal-footer").append('<input type="hidden" name="barang_id" value="' + $(this).data("id") + '">');
+            $("#overhead_nama").val($(this).data("nama"));
+            $("#satuan_id").val($(this).data("satuan"));
+            $("#keterangan").val($(this).data("keterangan"));
+            $(".modal-footer").append('<input type="hidden" name="overhead_id" value="' + $(this).data("id") + '">');
         })
 
         $(".content").on("click", "#ubah", function(e) {
@@ -280,14 +195,14 @@
             let formData = new FormData($("form")[0]);
             $.ajax({
                 type: "post",
-                url: `${BASE_URL}/pro/master/barang/ubah`,
+                url: `${BASE_URL}/proc/master/overhead/ubah`,
                 dataType: "json",
                 contentType: false,
                 processData: false,
                 cache: false,
                 data: formData,
                 success: function(response) {
-                    responValidasi(['ubah'], ['id_gender','id_bentuk', 'id_bahan','id_diamond','id_permata','kode','nama_barang','satuan_id'], response);
+                    responValidasi(['ubah'], ['kode','overhead_nama','satuan_id','keterangan'], response);
                     if (response.sukses) {
                         $("#formModal").modal("hide");
                         table.ajax.reload();
@@ -300,7 +215,7 @@
             $("input[name=id]").remove();
             $("input").removeClass("is-invalid");
             $("select").removeClass("is-invalid");
-            $("#img-preview").parent().addClass("d-none");
+            
         })
 
         $(".content").on("click", ".hapus", function(e) {
@@ -314,7 +229,7 @@
             }).then(result => {
                 if (result.isConfirmed) {
                     $.ajax({
-                        url: `${BASE_URL}/pro/master/barang/hapus`,
+                        url: `${BASE_URL}/proc/master/overhead/hapus`,
                         data: {
                             id: $(this).data("id")
                         },

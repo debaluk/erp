@@ -9,7 +9,7 @@ class BarangjadiModel extends Model
 {
     protected $table      = 'pro_barang_jadi';
     protected $primaryKey = 'barang_id';
-    protected $allowedFields = ['id_bentuk','id_bahan','id_diamond','id_permata','kode','barang_nama','satuan_id','diskripsi','gambar'];
+    protected $allowedFields = ['id_gender','id_bentuk','id_bahan','id_diamond','id_permata','kode','barang_nama','satuan_id','diskripsi','gambar'];
     protected $useTimestamps = true;
     protected $createdField       = 'created_at';
     protected $updatedField       = 'updated_at';

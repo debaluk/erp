@@ -23,6 +23,14 @@
         {
             $namamodul='PRODUKSI';
         }
+        if ($uri->getSegment(1)=='asset')
+        {
+            $namamodul='ASSET MANAGEMENT';
+        }
+        if ($uri->getSegment(1)=='sale')
+        {
+            $namamodul='PENJUALAN';
+        }
         echo $namamodul;
         ?>
         </div>
@@ -199,6 +207,13 @@
                                 <p>Upah</p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('proc/master/overhead') ?>" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Overhead</p>
+                            </a>
+                        </li>
+                       
                       
                     </ul>
                 </li>
@@ -375,7 +390,165 @@
                                 <p>Barang Jadi</p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('pro/master/kategorijasa') ?>" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Kategori Jasa</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('pro/master/jasa') ?>" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Jasa</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item active">
+                    <a href="javascript:void(0)" class="nav-link">
+                        <i class="nav-icon fas fa-cart-plus"></i>
+                        <p> Transaksi <i class="right fas fa-angle-left"></i></p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?= base_url('pro/transaksi/penerimaanbarang') ?>" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Penerimaan Barang</p>
+                            </a>
+                        </li>
                        
+                    </ul>
+                </li>
+                <li class="nav-item active">
+                    <a href="javascript:void(0)" class="nav-link">
+                        <i class="nav-icon fas fa-copy"></i>
+                        <p> Report <i class="right fas fa-angle-left"></i></p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?= base_url('pro/report/stokupdate') ?>" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Stock Update</p>
+                            </a>
+                        </li>
+                    </ul>
+                    
+                </li>
+                <li class="nav-item">
+                    <a href="javascript:void(0)" data-toggle="modal" data-target="#modal-logout" class="nav-link">
+                        <i class="nav-icon fas fa-sign-out-alt"></i>
+                        <p>Logout</p>
+                    </a>
+                </li>
+               
+            </ul>
+        </nav>
+        <!-- /.sidebar-menu -->
+    </div>
+    <?php } ?>
+
+    <?php if ($uri->getSegment(1)=='asset') { ?>
+    <div class="sidebar">
+       
+        <!-- Sidebar Menu -->
+       
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column text-sm" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-item">
+                    <a href="<?= base_url('dashboard') ?>" class="nav-link">
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <p> Dashboard </p>
+                    </a>
+                </li>
+
+               
+                <li class="nav-item active">
+                    <a href="javascript:void(0)" class="nav-link">
+                        <i class="nav-icon fas fa-table"></i>
+                        <p> Master <i class="right fas fa-angle-left"></i></p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?= base_url('pro/master/bentuk') ?>" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Bentuk</p>
+                            </a>
+                        </li>
+                       
+                        
+                    </ul>
+                </li>
+                <li class="nav-item active">
+                    <a href="javascript:void(0)" class="nav-link">
+                        <i class="nav-icon fas fa-cart-plus"></i>
+                        <p> Transaksi <i class="right fas fa-angle-left"></i></p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?= base_url('pro/transaksi/penerimaanbarang') ?>" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Penerimaan Barang</p>
+                            </a>
+                        </li>
+                       
+                    </ul>
+                </li>
+                <li class="nav-item active">
+                    <a href="javascript:void(0)" class="nav-link">
+                        <i class="nav-icon fas fa-copy"></i>
+                        <p> Report <i class="right fas fa-angle-left"></i></p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?= base_url('pro/report/stokupdate') ?>" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Stock Update</p>
+                            </a>
+                        </li>
+                    </ul>
+                    
+                </li>
+                <li class="nav-item">
+                    <a href="javascript:void(0)" data-toggle="modal" data-target="#modal-logout" class="nav-link">
+                        <i class="nav-icon fas fa-sign-out-alt"></i>
+                        <p>Logout</p>
+                    </a>
+                </li>
+               
+            </ul>
+        </nav>
+        <!-- /.sidebar-menu -->
+    </div>
+    <?php } ?>
+    <?php if ($uri->getSegment(1)=='sale') { ?>
+    <div class="sidebar">
+       
+        <!-- Sidebar Menu -->
+       
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column text-sm" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-item">
+                    <a href="<?= base_url('dashboard') ?>" class="nav-link">
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <p> Dashboard </p>
+                    </a>
+                </li>
+
+               
+                <li class="nav-item active">
+                    <a href="javascript:void(0)" class="nav-link">
+                        <i class="nav-icon fas fa-table"></i>
+                        <p> Master <i class="right fas fa-angle-left"></i></p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?= base_url('pro/master/bentuk') ?>" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Bentuk</p>
+                            </a>
+                        </li>
+                       
+                        
                     </ul>
                 </li>
                 <li class="nav-item active">

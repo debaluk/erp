@@ -2,7 +2,7 @@
 <?php $this->section('content'); ?>
 
 <div class="container-fluid">
-    <button class="btn btn-primary mb-1 tambah"><i class="fas fa-plus"></i> Tambah Barang</button>
+    <button class="btn btn-primary mb-1 tambah"><i class="fas fa-plus"></i> Tambah Jasa</button>
     <div class="card shadow mb-4">
         <div class="card-body">
             <div class="table-responsive">
@@ -11,7 +11,8 @@
                         <tr>
                             <th>#</th>
                             <th>Kode</th>
-                            <th>Nama Barang Jadi</th>
+                            <th>Kateori Jasa</th>
+                            <th>Nama Jasa</th>
                             <th>Satuan</th>
                             <th>Aksi</th>
                         </tr>
@@ -33,69 +34,20 @@
                 </button>
             </div>
             <div class="modal-body">
+                
                 <div class="form-group row">
-                    <label for="kategori" class="col-sm-4 col-form-label">Bentuk</label>
+                    <label for="kategori" class="col-sm-4 col-form-label">Kategori Jasa</label>
                     <div class="col-sm-8">
-                        <select name="id_bentuk" id="id_bentuk" class="form-control">
-                            <option value="">Pilih Bentuk</option>
-                            <?php foreach (esc($bentuk) as $data) : ?>
-                                <option value="<?= esc($data->id_bentuk) ?>"><?= esc($data->kode)  ?>|<?= esc($data->nama_bentuk)  ?></option>
+                        <select name="kategori_jasa_id" id="kategori_jasa_id" class="form-control">
+                            <option value="">Pilih Kategori</option>
+                            <?php foreach (esc($kategori) as $data) : ?>
+                                <option value="<?= esc($data->kategori_jasa_id) ?>"><?= esc($data->kode)  ?>|<?= esc($data->nama_kategori_jasa)  ?></option>
                             <?php endforeach; ?>
                         </select>
                         <small class="invalid-feedback"></small>
                     </div>
                 </div>
-                <div class="form-group row">
-                    <label for="kategori" class="col-sm-4 col-form-label">Bahan</label>
-                    <div class="col-sm-8">
-                        <select name="id_bahan" id="id_bahan" class="form-control">
-                            <option value="">Pilih Bahan</option>
-                            <?php foreach (esc($bahan) as $data) : ?>
-                                <option value="<?= esc($data->id_bahan) ?>"><?= esc($data->kode)  ?>|<?= esc($data->nama_bahan)  ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                        <small class="invalid-feedback"></small>
-                    </div>
-                </div>
-               
-                <div class="form-group row">
-                    <label for="kategori" class="col-sm-4 col-form-label">Diamond</label>
-                    <div class="col-sm-8">
-                        <select name="id_diamond" id="id_diamond" class="form-control">
-                            <option value="">Pilih Diamond</option>
-                            <?php foreach (esc($diamond) as $data) : ?>
-                                <option value="<?= esc($data->id_diamond) ?>"><?= esc($data->kode)  ?>|<?= esc($data->nama_diamond)  ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                        <small class="invalid-feedback"></small>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="kategori" class="col-sm-4 col-form-label">Permata</label>
-                    <div class="col-sm-8">
-                        <select name="id_permata" id="id_permata" class="form-control">
-                            <option value="">Pilih Permatan</option>
-                            <?php foreach (esc($permata) as $data) : ?>
-                                <option value="<?= esc($data->id_permata) ?>"><?= esc($data->kode)  ?>|<?= esc($data->nama_permata)  ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                        <small class="invalid-feedback"></small>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="kategori" class="col-sm-4 col-form-label">Gender</label>
-                    <div class="col-sm-8">
-                        <select name="id_gender" id="id_gender" class="form-control">
-                            <option value="">Pilih </option>
-                            
-                                <option value="Pria">Pria</option>
-                                <option value="Wanita">Wanita</option>
-                                <option value="All">All</option>
-                            
-                        </select>
-                        <small class="invalid-feedback"></small>
-                    </div>
-                </div>
+                
                 <div class="form-group row">
                     <label for="kategori" class="col-sm-4 col-form-label">Kode</label>
                     <div class="col-sm-8">
@@ -105,9 +57,9 @@
                 </div>
                 
                 <div class="form-group row">
-                    <label for="kategori" class="col-sm-4 col-form-label">Nama Barang</label>
+                    <label for="kategori" class="col-sm-4 col-form-label">Nama Jasa</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" name="barang_nama" id="barang_nama">
+                        <input type="text" class="form-control" name="nama_jasa" id="nama_jasa">
                         <small class="invalid-feedback"></small>
                     </div>
                 </div>
@@ -124,9 +76,9 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="kategori" class="col-sm-4 col-form-label">Deskripsi</label>
+                    <label for="kategori" class="col-sm-4 col-form-label">Keterangan</label>
                     <div class="col-sm-8">
-                        <textarea  class="form-control" name="diskripsi" id="diskripsi"></textarea>
+                        <textarea  class="form-control" name="keterangan" id="keterangan"></textarea>
                        
                         <small class="invalid-feedback"></small>
                     </div>
@@ -163,7 +115,7 @@
             serverSide: true,
             order: [],
             ajax: {
-                url: `${BASE_URL}/pro/master/barang/ajax`
+                url: `${BASE_URL}/pro/master/jasa/ajax`
             },
             //optional
             lengthMenu: [
@@ -195,10 +147,13 @@
                     data: 'kode',
                     name: 'kode'
                 },
-                
                 {
-                    data: 'barang_nama',
-                    name: 'barang_nama'
+                    data: 'kategori',
+                    name: 'kategori'
+                },
+                {
+                    data: 'nama_jasa',
+                    name: 'nama_jasa'
                 },
                 {
                     data: 'satuan',
@@ -208,8 +163,8 @@
                 {
                     data: function(row) {
                            
-                        let html = '<button class="btn btn-success btn-sm mr-1 ubah" data-id="' + row.barang_id + '" data-id_bentuk="' + row.id_bentuk + '" data-id_bahan="' + row.id_bahan + '"data-id_diamond="' + row.id_diamond + '" data-id_permata="' + row.id_permata + '"data-kode="' + row.kode + '"data-barang_nama="' + row.barang_nama + '"data-satuan_id="' + row.satuan_id + '"data-diskripsi="' + row.diskripsi + '"data-gambar="' + row.gambar + '"data-id_gender="' + row.id_gender + '"><i class="fas fa-edit"></i></button>'
-                        html += '<button class="btn btn-danger btn-sm hapus" data-id="' + row.barang_id + '"><i class="fa fa-trash"></i></button>'
+                        let html = '<button class="btn btn-success btn-sm mr-1 ubah" data-id="' + row.jasa_id + '"data-kategori="' + row.kategori_jasa_id + '"data-kode="' + row.kode + '"data-nama_jasa="' + row.nama_jasa + '"data-satuan_id="' + row.satuan_id + '"data-keterangan="' + row.keterangan + '"data-gambar="' + row.gambar + '"data-id_gender="' + row.id_gender + '"><i class="fas fa-edit"></i></button>'
+                        html += '<button class="btn btn-danger btn-sm hapus" data-id="' + row.jasa_id + '"><i class="fa fa-trash"></i></button>'
                         return html;
                     }
                 }
@@ -217,11 +172,11 @@
             columnDefs: [{
                 targets: 0,
                 width: "5%",
-                targets: 4,
+                targets: 5,
                 width: "10%",
             },
             { //no order
-	            targets: [ 0,1,2,-1 ],
+	            targets: [ 0,1,2,3,-1 ],
 	            orderable: false, 
 	        }]
             
@@ -241,14 +196,14 @@
             let formData = new FormData($("form")[0]);
             $.ajax({
                 type: "post",
-                url: `${BASE_URL}/pro/master/barang/tambah`,
+                url: `${BASE_URL}/pro/master/jasa/tambah`,
                 dataType: "json",
                 contentType: false,
                 processData: false,
                 cache: false,
                 data: formData,
                 success: function(response) {
-                    responValidasi(['tambah'], ['id_gender','id_bentuk', 'id_bahan','id_diamond','id_permata','kode','nama_barang','satuan_id'], response);
+                    responValidasi(['tambah'], ['kategori_jasa_id','kode','nama_jasa','satuan_id'], response);
                     if (response.sukses) {
                         $("#formModal").modal("hide");
                         table.ajax.reload();
@@ -260,19 +215,15 @@
             $("#formModal").modal("show");
             $(".modal-title").text("Edit Data");
             $("button[type=submit]").attr("id", "ubah");
-            // isi tiap kolom
-            $("#id_bentuk").val($(this).data("id_bentuk"));
-            $("#id_bahan").val($(this).data("id_bahan"));
-            $("#id_diamond").val($(this).data("id_diamond"));
-            $("#id_permata").val($(this).data("id_permata"));
+            $("#kategori_jasa_id").val($(this).data("kategori"));
             $("#kode").val($(this).data("kode"));
-            $("#barang_nama").val($(this).data("barang_nama"));
+            $("#nama_jasa").val($(this).data("nama_jasa"));
             $("#satuan_id").val($(this).data("satuan_id"));
-            $("#id_gender").val($(this).data("id_gender"));
+            $("#keterangan").val($(this).data("keterangan"));
                        
-            $("#img-preview").prop("src", `${BASE_URL}/uploads/produk_jadi/` + $(this).data('gambar')).parent().removeClass("d-none");
+            $("#img-preview").prop("src", `${BASE_URL}/uploads/jasa/` + $(this).data('gambar')).parent().removeClass("d-none");
             $("#gambarLama").val($(this).data('gambar'));
-            $(".modal-footer").append('<input type="hidden" name="barang_id" value="' + $(this).data("id") + '">');
+            $(".modal-footer").append('<input type="hidden" name="jasa_id" value="' + $(this).data("id") + '">');
         })
 
         $(".content").on("click", "#ubah", function(e) {
@@ -280,14 +231,14 @@
             let formData = new FormData($("form")[0]);
             $.ajax({
                 type: "post",
-                url: `${BASE_URL}/pro/master/barang/ubah`,
+                url: `${BASE_URL}/pro/master/jasa/ubah`,
                 dataType: "json",
                 contentType: false,
                 processData: false,
                 cache: false,
                 data: formData,
                 success: function(response) {
-                    responValidasi(['ubah'], ['id_gender','id_bentuk', 'id_bahan','id_diamond','id_permata','kode','nama_barang','satuan_id'], response);
+                    responValidasi(['ubah'], ['kategori_jasa_id','kode','nama_jasa','satuan_id'], response);
                     if (response.sukses) {
                         $("#formModal").modal("hide");
                         table.ajax.reload();
@@ -314,7 +265,7 @@
             }).then(result => {
                 if (result.isConfirmed) {
                     $.ajax({
-                        url: `${BASE_URL}/pro/master/barang/hapus`,
+                        url: `${BASE_URL}/pro/master/jasa/hapus`,
                         data: {
                             id: $(this).data("id")
                         },
