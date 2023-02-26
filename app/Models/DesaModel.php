@@ -31,7 +31,7 @@ class DesaModel extends Model
     public function getDesaIdKec($idkec)
     {
         return $this->builder($this->table)
-        ->select('id, nama AS nama')
+        ->select('id as iddesa, nama AS nama')
         ->where('kecamatan_id', $idkec)->get()->getResult();
        
     }

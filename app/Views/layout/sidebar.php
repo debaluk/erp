@@ -296,12 +296,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item">
-                            <a href="<?= base_url('hrd/master/karyawan') ?>" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Karyawan</p>
-                            </a>
-                        </li>
+                       
                     </ul>
                 </li>
                 <li class="nav-item active">
@@ -311,7 +306,12 @@
                     </a>
                     <ul class="nav nav-treeview">
                        
-                       
+                        <li class="nav-item">
+                            <a href="<?= base_url('hrd/transaksi/karyawan') ?>" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Pekerja</p>
+                            </a>
+                        </li>
                         <li class="nav-item">
                             <a href="<?= base_url('hrd/user') ?>" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>

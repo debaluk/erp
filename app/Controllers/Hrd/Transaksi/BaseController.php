@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers\Master;
+namespace App\Controllers\Hrd\Transaksi;
 
 /**
  * Class BaseController
