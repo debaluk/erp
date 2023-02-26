@@ -23,9 +23,9 @@
         {
             $namamodul='PRODUKSI';
         }
-        if ($uri->getSegment(1)=='asset')
+        if ($uri->getSegment(1)=='aset')
         {
-            $namamodul='ASSET MANAGEMENT';
+            $namamodul='ASET MANAJEMEN';
         }
         if ($uri->getSegment(1)=='sale')
         {
@@ -447,7 +447,7 @@
     </div>
     <?php } ?>
 
-    <?php if ($uri->getSegment(1)=='asset') { ?>
+    <?php if ($uri->getSegment(1)=='aset') { ?>
     <div class="sidebar">
        
         <!-- Sidebar Menu -->
@@ -469,9 +469,21 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="<?= base_url('pro/master/bentuk') ?>" class="nav-link">
+                            <a href="<?= base_url('aset/master/kategoriaset') ?>" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Bentuk</p>
+                                <p>Kategori Aset</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('aset/master/jenisaset') ?>" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Jenis Aset</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('aset/master/aset') ?>" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Aset</p>
                             </a>
                         </li>
                        

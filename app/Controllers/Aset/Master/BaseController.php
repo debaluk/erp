@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers\Asset;
+namespace App\Controllers\Aset\Master;
 
 /**
  * Class BaseController

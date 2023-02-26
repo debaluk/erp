@@ -11,8 +11,8 @@
                         <tr>
                             <th>#</th>
                             <th>Kode</th>
-                            <th>Kategori Upah</th>
-                            <th>Jenis Upah</th>
+                            <th>Kategori Aset</th>
+                            <th>Jenis Aset</th>
                             <th>Keterangan</th>
                             <th>Aksi</th>
                         </tr>
@@ -44,19 +44,19 @@
                 <div class="form-group row">
                     <label for="kategori" class="col-sm-4 col-form-label">Nama Kategori</label>
                     <div class="col-sm-8">
-                        <select name="kategori_upah_id" id="kategori_upah_id" class="form-control">
+                        <select name="kategori_aset_id" id="kategori_aset_id" class="form-control">
                             <option value="">Pilih Kategori</option>
                             <?php foreach (esc($kategori) as $data) : ?>
-                                <option value="<?= esc($data->kategori_upah_id) ?>"><?= esc($data->kategori_upah)  ?></option>
+                                <option value="<?= esc($data->kategori_aset_id) ?>"><?= esc($data->kategori)  ?></option>
                             <?php endforeach; ?>
                         </select>
                         <small class="invalid-feedback"></small>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="kategori" class="col-sm-4 col-form-label">Nama Jenis Upah</label>
+                    <label for="kategori" class="col-sm-4 col-form-label">Nama Jenis Aset</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" name="jenis_upah" id="jenis_upah">
+                        <input type="text" class="form-control" name="jenis_aset" id="jenis_aset">
                         <small class="invalid-feedback"></small>
                     </div>
                 </div>
@@ -87,7 +87,7 @@
             serverSide: true,
             order: [],
             ajax: {
-                url: `${BASE_URL}/proc/master/jenisupah/ajax`
+                url: `${BASE_URL}/aset/master/jenisaset/ajax`
             },
             //optional
             lengthMenu: [
@@ -124,8 +124,8 @@
                     name: 'kategori'
                 },
                 {
-                    data: 'jenis_upah',
-                    name: 'jenis_upah'
+                    data: 'jenis_aset',
+                    name: 'jenis_aset'
                 },
                 {
                     data: 'keterangan',
@@ -134,8 +134,8 @@
                 {
                     data: function(row) {
                            
-                        let html = '<button class="btn btn-success btn-sm mr-1 ubah" data-id="' + row.jenis_upah_id + '" data-kode="' + row.kode + '" data-kategori="' + row.kategori_upah_id + '"data-jenis="' + row.jenis_upah + '" data-keterangan="' + row.keterangan + '"><i class="fas fa-edit"></i></button>'
-                        html += '<button class="btn btn-danger btn-sm hapus" data-id="' + row.jenis_upah_id + '"><i class="fa fa-trash"></i></button>'
+                        let html = '<button class="btn btn-success btn-sm mr-1 ubah" data-id="' + row.jenis_aset_id + '" data-kode="' + row.kode + '" data-kategori="' + row.kategori_aset_id + '"data-jenis="' + row.jenis_aset + '" data-keterangan="' + row.keterangan + '"><i class="fas fa-edit"></i></button>'
+                        html += '<button class="btn btn-danger btn-sm hapus" data-id="' + row.jenis_aset_id + '"><i class="fa fa-trash"></i></button>'
                         return html;
                     }
                 }
@@ -163,14 +163,14 @@
             let formData = new FormData($("form")[0]);
             $.ajax({
                 type: "post",
-                url: `${BASE_URL}/proc/master/jenisupah/tambah`,
+                url: `${BASE_URL}/aset/master/jenisaset/tambah`,
                 dataType: "json",
                 contentType: false,
                 processData: false,
                 cache: false,
                 data: formData,
                 success: function(response) {
-                    responValidasi(['tambah'], ['kode', 'kategori_upah_id','jenis_upah'], response);
+                    responValidasi(['tambah'], ['kode', 'kategori_aset_id','jenis_aset'], response);
                     if (response.sukses) {
                         $("#formModal").modal("hide");
                         table.ajax.reload();
@@ -184,10 +184,10 @@
             $("button[type=submit]").attr("id", "ubah");
             // isi tiap kolom
             $("#kode").val($(this).data("kode"));
-            $("#kategori_upah_id").val($(this).data("kategori"));
-            $("#jenis_upah").val($(this).data("jenis"));
+            $("#kategori_aset_id").val($(this).data("kategori"));
+            $("#jenis_aset").val($(this).data("jenis"));
             $("#keterangan").val($(this).data("keterangan"));
-            $(".modal-footer").append('<input type="hidden" name="jenis_upah_id" value="' + $(this).data("id") + '">');
+            $(".modal-footer").append('<input type="hidden" name="jenis_aset_id" value="' + $(this).data("id") + '">');
         })
 
         $(".content").on("click", "#ubah", function(e) {
@@ -195,14 +195,14 @@
             let formData = new FormData($("form")[0]);
             $.ajax({
                 type: "post",
-                url: `${BASE_URL}/proc/master/jenisupah/ubah`,
+                url: `${BASE_URL}/aset/master/jenisaset/ubah`,
                 dataType: "json",
                 contentType: false,
                 processData: false,
                 cache: false,
                 data: formData,
                 success: function(response) {
-                    responValidasi(['ubah'], ['kode', 'kategori_upah_id','jenis_upah'], response);
+                    responValidasi(['ubah'], ['kode', 'kategori_aset_id','jenis_aset'], response);
                     if (response.sukses) {
                         $("#formModal").modal("hide");
                         table.ajax.reload();
@@ -229,7 +229,7 @@
             }).then(result => {
                 if (result.isConfirmed) {
                     $.ajax({
-                        url: `${BASE_URL}/proc/master/jenisupah/hapus`,
+                        url: `${BASE_URL}/aset/master/jenisaset/hapus`,
                         data: {
                             id: $(this).data("id")
                         },

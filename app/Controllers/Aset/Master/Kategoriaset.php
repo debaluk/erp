@@ -1,31 +1,31 @@
 <?php
 
-namespace App\Controllers\Proc\Master;
+namespace App\Controllers\Aset\Master;
 
-use App\Models\KategoriupahModel;
+use App\Models\KategoriasetModel;
 use Irsyadulibad\DataTables\DataTables;
 
-class Kategoriupah extends BaseController {
-    protected $kategoriupahModel;
+class Kategoriaset extends BaseController {
+    protected $kategoriasetModel;
    
     private $rules = [
-        'kode' =>  ['rules' => 'required|alpha_numeric_punct|is_unique[inv_kategori_barang.kode,kode,{kode}]'],
-        'kategori_upah' =>  ['rules' => 'required|alpha_numeric_punct'],
+        'kode' =>  ['rules' => 'required|alpha_numeric_punct|is_unique[aset_kategori_aset.kode,kode,{kode}]'],
+        'kategori_aset' =>  ['rules' => 'required|alpha_numeric_punct'],
     ];
 
     public function __construct() {
-        $this->kategoriupahModel = new kategoriupahModel();
+        $this->kategori = new kategoriasetModel();
         helper('form');
     }
 
     public function index() {
-        echo view('proc/master/kategoriupah/index', ['title' => 'Kategori Upah']);
+        echo view('aset/master/kategoriaset/index', ['title' => 'Kategori Aset']);
     }
 
     public function ajax() {
         if ($this->request->isAJAX()) {
-            return DataTables::use ('inv_kategori_upah')
-            ->select('kategori_upah_id, kode, kategori_upah, keterangan')
+            return DataTables::use ('aset_kategori_aset')
+            ->select('kategori_aset_id, kode, kategori_aset, keterangan')
                 ->make();
         }
     }
@@ -40,10 +40,10 @@ class Kategoriupah extends BaseController {
             } else {
                 $data = [
                     'kode' => ucwords($this->request->getPost('kode', FILTER_UNSAFE_RAW)),
-                    'kategori_upah' => ucwords($this->request->getPost('kategori_upah', FILTER_UNSAFE_RAW)),
+                    'kategori_aset' => ucwords($this->request->getPost('kategori_aset', FILTER_UNSAFE_RAW)),
                     'keterangan' => ucwords($this->request->getPost('keterangan', FILTER_UNSAFE_RAW)),
                 ];
-                $this->kategoriupahModel->save($data);  
+                $this->kategori->save($data);  
                 $respon = [
                     'validasi' => true,
                     'sukses'   => true,
@@ -64,11 +64,11 @@ class Kategoriupah extends BaseController {
             } else {
                 $data = [
                     'kode' => ucwords($this->request->getPost('kode', FILTER_UNSAFE_RAW)),
-                    'kategori_upah' => ucwords($this->request->getPost('kategori_upah', FILTER_UNSAFE_RAW)),
+                    'kategori_aset' => ucwords($this->request->getPost('kategori_aset', FILTER_UNSAFE_RAW)),
                     'keterangan' => ucwords($this->request->getPost('keterangan', FILTER_UNSAFE_RAW)),
-                    'kategori_upah_id' => $this->request->getPost('kategori_upah_id', FILTER_SANITIZE_NUMBER_INT),
+                    'kategori_aset_id' => $this->request->getPost('kategori_aset_id', FILTER_SANITIZE_NUMBER_INT),
                 ];
-                $this->kategoriupahModel->save($data);  
+                $this->kategori->save($data);  
                 $respon = [
                     'validasi' => true,
                     'sukses'   => true,
@@ -83,8 +83,8 @@ class Kategoriupah extends BaseController {
     public function hapus() {
         if ($this->request->isAJAX()) {           
             $id = $this->request->getGet('id', FILTER_SANITIZE_NUMBER_INT);
-            if ($this->kategoriupahModel->find($id)) {
-                $this->kategoriupahModel->delete($id, true); // hapus data
+            if ($this->kategori->find($id)) {
+                $this->kategori->delete($id, true); // hapus data
                 $respon = [
                     'status' => true,
                     'pesan'  => 'Data berhasil dihapus',

@@ -2,7 +2,7 @@
 <?php $this->section('content'); ?>
 
 <div class="container-fluid">
-    <button class="btn btn-primary mb-1 tambah"><i class="fas fa-plus"></i> Tambah</button>
+    <button class="btn btn-primary mb-1 tambah"><i class="fas fa-plus"></i> Tambah Kategori</button>
     <div class="card shadow mb-4">
         <div class="card-body">
             <div class="table-responsive">
@@ -11,8 +11,8 @@
                         <tr>
                             <th>#</th>
                             <th>Kode</th>
-                            <th>NAMA OVERHEAD</th>
-                            <th>SATUAN</th>
+                            <th>Kategori Aset</th>
+                            <th>Keterangan</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -33,38 +33,23 @@
                 </button>
             </div>
             <div class="modal-body">
-           
-                
                 <div class="form-group row">
-                    <label for="kategori" class="col-sm-4 col-form-label">Kode</label>
-                    <div class="col-sm-8">
+                    <label for="kategori" class="col-sm-3 col-form-label">Kode</label>
+                    <div class="col-sm-9">
                         <input type="text" class="form-control" name="kode" id="kode" >
                         <small class="invalid-feedback"></small>
                     </div>
                 </div>
-                
                 <div class="form-group row">
-                    <label for="kategori" class="col-sm-4 col-form-label">Nama Overhead</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" name="overhead_nama" id="overhead_nama">
+                    <label for="kategori" class="col-sm-3 col-form-label">Nama Kategori</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" name="kategori_aset" id="kategori_aset">
                         <small class="invalid-feedback"></small>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="kategori" class="col-sm-4 col-form-label">Satuan</label>
-                    <div class="col-sm-8">
-                        <select name="satuan_id" id="satuan_id" class="form-control">
-                            <option value="">Pilih Satuan</option>
-                            <?php foreach (esc($satuan) as $data) : ?>
-                                <option value="<?= esc($data->satuan_id) ?>"><?= esc($data->satuan)  ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                        <small class="invalid-feedback"></small>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="kategori" class="col-sm-4 col-form-label">Keterangan</label>
-                    <div class="col-sm-8">
+                    <label for="kategori" class="col-sm-3 col-form-label">Keterangan</label>
+                    <div class="col-sm-9">
                         <input type="text" class="form-control" name="keterangan" id="keterangan">
                         <small class="invalid-feedback"></small>
                     </div>
@@ -89,7 +74,7 @@
             serverSide: true,
             order: [],
             ajax: {
-                url: `${BASE_URL}/proc/master/overhead/ajax`
+                url: `${BASE_URL}/aset/master/kategoriaset/ajax`
             },
             //optional
             lengthMenu: [
@@ -122,18 +107,18 @@
                     name: 'kode'
                 },
                 {
-                    data: 'overhead_nama',
-                    name: 'overhead_nama'
+                    data: 'kategori_aset',
+                    name: 'kategori_aset'
                 },
                 {
-                    data: 'satuan',
-                    name: 'satuan'
+                    data: 'keterangan',
+                    name: 'keterangan'
                 },
                 {
                     data: function(row) {
                            
-                        let html = '<button class="btn btn-success btn-sm mr-1 ubah" data-id="' + row.overhead_id + '" data-kode="' + row.kode + '"data-nama="' + row.overhead_nama + '"data-satuan="' + row.satuan_id + '"data-keterangan="' + row.keterangan + '"><i class="fas fa-edit"></i></button>'
-                        html += '<button class="btn btn-danger btn-sm hapus" data-id="' + row.overhead_id + '"><i class="fa fa-trash"></i></button>'
+                        let html = '<button class="btn btn-success btn-sm mr-1 ubah" data-id="' + row.kategori_aset_id + '" data-kode="' + row.kode + '" data-kategori_aset="' + row.kategori_aset + '" data-keterangan="' + row.keterangan + '"><i class="fas fa-edit"></i></button>'
+                        html += '<button class="btn btn-danger btn-sm hapus" data-id="' + row.kategori_aset_id + '"><i class="fa fa-trash"></i></button>'
                         return html;
                     }
                 }
@@ -141,8 +126,6 @@
             columnDefs: [{
                 targets: 0,
                 width: "5%",
-                targets: 3,
-                width: "15%",
                 targets: 4,
                 width: "10%",
             },
@@ -163,14 +146,14 @@
             let formData = new FormData($("form")[0]);
             $.ajax({
                 type: "post",
-                url: `${BASE_URL}/proc/master/overhead/tambah`,
+                url: `${BASE_URL}/aset/master/kategoriaset/tambah`,
                 dataType: "json",
                 contentType: false,
                 processData: false,
                 cache: false,
                 data: formData,
                 success: function(response) {
-                    responValidasi(['tambah'], ['kode','overhead_nama','satuan_id','keterangan'], response);
+                    responValidasi(['tambah'], ['kode', 'kategori_aset'], response);
                     if (response.sukses) {
                         $("#formModal").modal("hide");
                         table.ajax.reload();
@@ -184,10 +167,9 @@
             $("button[type=submit]").attr("id", "ubah");
             // isi tiap kolom
             $("#kode").val($(this).data("kode"));
-            $("#overhead_nama").val($(this).data("nama"));
-            $("#satuan_id").val($(this).data("satuan"));
+            $("#kategori_aset").val($(this).data("kategori_aset"));
             $("#keterangan").val($(this).data("keterangan"));
-            $(".modal-footer").append('<input type="hidden" name="overhead_id" value="' + $(this).data("id") + '">');
+            $(".modal-footer").append('<input type="hidden" name="kategori_aset_id" value="' + $(this).data("id") + '">');
         })
 
         $(".content").on("click", "#ubah", function(e) {
@@ -195,14 +177,14 @@
             let formData = new FormData($("form")[0]);
             $.ajax({
                 type: "post",
-                url: `${BASE_URL}/proc/master/overhead/ubah`,
+                url: `${BASE_URL}/aset/master/kategoriaset/ubah`,
                 dataType: "json",
                 contentType: false,
                 processData: false,
                 cache: false,
                 data: formData,
                 success: function(response) {
-                    responValidasi(['ubah'], ['kode','overhead_nama','satuan_id','keterangan'], response);
+                    responValidasi(['ubah'], ['kode', 'kategori_aset'], response);
                     if (response.sukses) {
                         $("#formModal").modal("hide");
                         table.ajax.reload();
@@ -215,7 +197,7 @@
             $("input[name=id]").remove();
             $("input").removeClass("is-invalid");
             $("select").removeClass("is-invalid");
-            
+           
         })
 
         $(".content").on("click", ".hapus", function(e) {
@@ -229,7 +211,7 @@
             }).then(result => {
                 if (result.isConfirmed) {
                     $.ajax({
-                        url: `${BASE_URL}/proc/master/overhead/hapus`,
+                        url: `${BASE_URL}/aset/master/kategoriaset/hapus`,
                         data: {
                             id: $(this).data("id")
                         },

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers\Asset;
+namespace App\Controllers\Aset;
 
 
 use App\Models\UserModel;
@@ -19,7 +19,7 @@ class Dashboard extends BaseController
             'title'     => 'Dashboard',
            
         ];
-        echo view('asset/dashboard', $data);
+        echo view('aset/dashboard', $data);
     }
 
 }
